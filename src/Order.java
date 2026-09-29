@@ -7,6 +7,10 @@ public class Order {
     List<Product> productList = new ArrayList<>();//Список заказанных продуктов
     float sumPrice; //Итоговая сумма заказа
     float sumWeight;
+    String deliveryType;
+    Courier courier;
+    float deliveryPrice = 0;
+    User user;
     //Конструктор класса заказа
     Order(int N){
         if(N > 0) {
@@ -15,21 +19,25 @@ public class Order {
     }
     //метод заполнения продуктов, которые заказали
     void addProdList(List<Integer> choiceOfProd, List<Product> defProdList){
-        for(int i = 0; i < choiceOfProd.size(); i++){
+        List<Product> temp = new ArrayList<>();
 
+        for(int i = 0; i < choiceOfProd.size(); i++){
             Product src = defProdList.get(choiceOfProd.get(i) - 1);
             Product copy = new Product(src.name, src.price, src.weight, src.numbOfProduct);
-
-            productList.add(copy);
+            temp.add(copy);
         }
-        for(int j = productList.size() - 1; j >= 0; j--){
-            for(int i = j - 1; i >= 0; i--){
-                if(productList.get(j).name.equals(productList.get(i).name)){
-                    productList.get(j).numbOfProduct += productList.get(i).numbOfProduct;
-                    productList.remove(i);
+
+        for(int j = 0; j < temp.size(); j++){
+            for(int i = j + 1; i < temp.size(); i++){
+                if(temp.get(j).name.equals(temp.get(i).name)){
+                    temp.get(j).numbOfProduct += temp.get(i).numbOfProduct;
+                    temp.remove(i);
+                    i--;
                 }
             }
         }
+
+        productList = temp;
     }
     //метод расчета итоговой суммы
     void calculateSum(){
