@@ -113,6 +113,65 @@ void main() {
                 listOrders.get(v - 1).outOrder();
                 break;
             case 4:
+                System.out.println("Выберите заказ, в котором хотите изменить статус.");
+                int w;
+                while (true){
+                    w = scanner.nextInt();
+                    if ((w <= 0) || (w > listOrders.size())){
+                        System.out.println("Заказа с таким номером не существует, попробуйте еще раз.");
+                    }
+                    else break;
+                }
+                System.out.println("Заказ №" + listOrders.get(w-1).numb + " Статус: " + listOrders.get(w-1).Status);
+                if (listOrders.get(w - 1).deliveryType.equals("Доставка")||listOrders.get(w - 1).deliveryType.equals("Экспресс доставка")){
+                    System.out.println("Выберите статус:" +
+                            "\n1)Собран" +
+                            "\n2)В пути" +
+                            "\n3)Доставлен");
+                    int ch;
+                    while (true){
+                        ch = scanner.nextInt();
+                        if ((ch <= 0) || (ch > 3)){
+                            System.out.println("Неверный ввод.");
+                        }
+                        else break;
+                    }
+                    switch(ch){
+                        case 1:
+                            listOrders.get(w-1).Status = "Собран";
+                            break;
+                        case 2:
+                            listOrders.get(w-1).Status = "В пути";
+                            break;
+                        case 3:
+                            listOrders.get(w-1).Status = "Доставлен";
+                            break;
+                    }
+
+                }
+                else {
+                    System.out.println("Выберите статус:" +
+                            "\n1)Собран" +
+                            "\n2)Забран");
+                    int sh;
+                    while (true){
+                        sh = scanner.nextInt();
+                        if ((sh <= 0) || (sh > 2)){
+                            System.out.println("Неверный ввод.");
+                        }
+                        else break;
+                    }
+                    switch(sh){
+                        case 1:
+                            listOrders.get(w-1).Status = "Собран";
+                            break;
+                        case 2:
+                            listOrders.get(w-1).Status = "Забран";
+                            break;
+                    }
+                }
+                System.out.println("Итог:");
+                listOrders.get(w - 1).outOrder();
                 break;
             case 5:
                 return;
