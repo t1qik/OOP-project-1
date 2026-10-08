@@ -31,7 +31,7 @@ void main() {
     while(true) {
         System.out.print("1)Создать новый заказ и добавить в него одну или несколько позиций;\n" +
                 "2)Показать список существующих заказов;\n" +
-                "3)Выбрать для заказа способ доставки и показать рассчитанные стоимость и срок;\n" +
+                "3)Показать для заказа способ доставки и показать рассчитанные стоимость и срок;\n" +
                 "4)Изменить статус заказа и показать его текущую информацию;\n" +
                 "5)Завершить работу\n");
         int choice = scanner.nextInt();
@@ -39,6 +39,7 @@ void main() {
             case 1:
                 Order order = new Order(N);
                 order.user = user;
+                order.Status = "Не готов";
 
                 System.out.println("Выберите номер продукта/продуктов из списка, который хотите заказать:");
                 for(int i = 0; i < defListProd.size(); i++){
@@ -100,6 +101,16 @@ void main() {
                 }
                 break;
             case 3:
+                System.out.println("Выберите заказ, о котором хотите узнать информацию.");
+                int v;
+                while (true){
+                    v = scanner.nextInt();
+                    if ((v <= 0) || (v > listOrders.size())){
+                        System.out.println("Заказа с таким номером не существует, попробуйте еще раз.");
+                    }
+                    else break;
+                }
+                listOrders.get(v - 1).outOrder();
                 break;
             case 4:
                 break;
