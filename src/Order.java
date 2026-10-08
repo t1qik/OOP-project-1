@@ -60,4 +60,13 @@ public class Order {
 
         }
     }
+    void outOrder(){
+        System.out.println("Заказ №" + numb + ". Пользователь: " + user.name + ": " + user.number);
+        System.out.println("Способ доставки: " + deliveryType + " Курьер: " + courier.name);
+        System.out.println("Итоговый вес: " + sumWeight + " Итоговая цена: " + sumPrice);
+        System.out.println("Продукты:");
+        for(int i = 0; i < productList.size(); i++) {
+            System.out.println((i+1) + ")" + productList.get(i).name + ",шт - " + productList.get(i).numbOfProduct);
+        }
+    }
 }

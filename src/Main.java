@@ -95,6 +95,9 @@ void main() {
                 N++;
                 break;
             case 2:
+                for(int i = 0; i < listOrders.size(); i++){
+                    listOrders.get(i).outOrder();
+                }
                 break;
             case 3:
                 break;
