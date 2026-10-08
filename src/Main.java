@@ -76,62 +76,17 @@ void main() {
                     case 1:
                         order.deliveryType = "Доставка";
                         order.deliveryPrice += 200;
-
-                        System.out.println("Выберите курьера:");
-                        for (int i = 0; i < defListCourier.size(); i++){
-                            System.out.println((i + 1) + ")Курьер:" + defListCourier.get(i).name +
-                                    " Рейтинг:" + defListCourier.get(i).rating +
-                                    " \nМаксимальный перевозимый вес:" + defListCourier.get(i).weight +
-                                    " Время доставки:" + defListCourier.get(i).time);
-                        }
-                        while(true){
-                            int idx = scanner.nextInt();
-                            if(idx < 1 || idx > defListCourier.size()){
-                                System.out.println("Курьера с таким номером не существует");
-                                continue;
-                            }
-                            Courier c = defListCourier.get(idx - 1);
-                            if(order.sumWeight > c.weight){
-                                System.out.println("Курьер не может увезти заказ: превышен вес");
-                            } else {
-                                order.courier = c;
-                                System.out.println("Курьер удачно добавлен");
-                                break;
-                            }
-                        }
+                        outCourierList(defListCourier, scanner, order);
                         break;
                     case 2:
                         order.deliveryType = "Экспресс досавка";
                         order.deliveryPrice += 400;
-
-                        System.out.println("Выберите курьера:");
-                        for (int i = 0; i < expressCourier.size(); i++) {
-                            System.out.println((i + 1) + ")Курьер:" + expressCourier.get(i).name +
-                                    " Рейтинг:" + expressCourier.get(i).rating +
-                                    " \nМаксимальный перевозимый вес:" + expressCourier.get(i).weight +
-                                    " Время доставки:" + expressCourier.get(i).time);
-                        }
-                        while(true){
-                            int idx = scanner.nextInt();
-                            if(idx < 1 || idx > expressCourier.size()){
-                                System.out.println("Курьера с таким номером не существует");
-                                continue;
-                            }
-                            Courier c = expressCourier.get(idx - 1);
-                            if(order.sumWeight > c.weight){
-                                System.out.println("Курьер не может увезти заказ: превышен вес");
-                            } else {
-                                order.courier = c;
-                                System.out.println("Курьер удачно добавлен");
-                                break;
-                            }
-                        }
+                        outCourierList(expressCourier, scanner, order);
                         break;
                     case 3:
                         order.deliveryType = "Самовывоз";
                         break;
                 }
-
 
                 System.out.println("Заказ номер: " + N + " успешно оформлен\nК оплате:");
                 System.out.printf("%.2f%n", order.sumPrice + order.deliveryPrice);
@@ -154,7 +109,7 @@ void main() {
 }
 
 //Функция заполнения списка позиций, которые можно выбрать для доставки
-//Оформленно чтение из файла
+//Оформленно чтение из файла списка продуктов для заказа
 List<Product> fillProdList(){
 
     List<Product> defListProd = new ArrayList<>();
@@ -185,7 +140,7 @@ List<Product> fillProdList(){
     }
     return defListProd;
 }
-
+//Оформленно чтение из файла списка доставщиков для заказа
 List<Courier> fillCourierList(){
 
     List<Courier> defListCourier = new ArrayList<>();
@@ -214,4 +169,29 @@ List<Courier> fillCourierList(){
         e.printStackTrace();
     }
     return defListCourier;
+}
+//Вывод списка курьеров для заказа
+void outCourierList(List<Courier> courierList, Scanner scanner, Order order){
+    System.out.println("Выберите курьера:");
+    for (int i = 0; i < courierList.size(); i++){
+        System.out.println((i + 1) + ")Курьер:" + courierList.get(i).name +
+                " Рейтинг:" + courierList.get(i).rating +
+                " \nМаксимальный перевозимый вес:" + courierList.get(i).weight +
+                " Время доставки:" + courierList.get(i).time);
+    }
+    while(true){
+        int idx = scanner.nextInt();
+        if(idx < 1 || idx > courierList.size()){
+            System.out.println("Курьера с таким номером не существует");
+            continue;
+        }
+        Courier c = courierList.get(idx - 1);
+        if(order.sumWeight > c.weight){
+            System.out.println("Курьер не может увезти заказ: превышен вес");
+        } else {
+            order.courier = c;
+            System.out.println("Курьер удачно добавлен");
+            break;
+        }
+    }
 }
